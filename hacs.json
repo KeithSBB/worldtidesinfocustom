@@ -1,4 +1,4 @@
 {
-  "name": "worldtidesinfocustom",
-  "homeassistant" : "2022.4.0"
+  "name": "worldtidesinfocustomforked",
+  "homeassistant" : "2025.0.1"
 }
