@@ -138,6 +138,9 @@ from .storage_mngt import File_Data_Cache, File_Picture
 # WorlTidesDataCoordinator
 from .worldtides_data_coordinator import WordTide_Data_Coordinator
 
+# Keith's custom entity
+from .tide_range import compute_lower_tide_range
+
 # Sensor HA parameter
 SCAN_INTERVAL = timedelta(seconds=SCAN_INTERVAL_SECONDS)
 
@@ -769,6 +772,18 @@ class WorldTidesInfoCustomSensorForecastHeight(WorldTidesInfoCustomSensorFollowe
 
         #forecast duration in hour
         attr["forecast_duration_in_hour"] = SENSOR_FORECAST_TIDE_DURATION/60/60
+        
+        time_struct = time.gmtime(forecast_time)
+        
+        #attr["forecast_time_in_hour"] = time.strftime('%a %b %d %H:%M:%S %Y', time_struct)
+        target_height = 3
+        
+        attr["summary"] = compute_lower_tide_range(
+            self._worldtide_data_coordinator.get_data()["current_data"] ,
+            current_time,
+            target_height,
+            self._unit_to_display
+            )
 
         return attr
 
